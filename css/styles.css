@@ -1,0 +1,363 @@
+/* ==========================================================
+   Rueda Libre - hoja de estilos v1.0
+   Secciones: 1. Variables  2. Base  3. Navegación
+              4. Componentes  5. Tablas  6. Formulario
+              7. Posicionamiento (etiqueta y WhatsApp)
+   ========================================================== */
+
+/* ---------- 1. VARIABLES ---------- */
+:root {
+  /* Paleta de marca */
+  --verde-ruta: #1E7A4F;
+  --naranja-pedal: #F39A2B;
+  --azul-noche: #14213D;
+  --crema: #FAF6EF;
+  --gris-asfalto: #5B6470;
+  --blanco: #FFFFFF;
+
+  /* Tipografías (con fuentes de respaldo) */
+  --fuente-titulos: "Montserrat", Arial, sans-serif;
+  --fuente-texto: "Open Sans", Arial, sans-serif;
+
+  /* Escala de espaciado */
+  --espacio-1: 0.5rem;
+  --espacio-2: 1rem;
+  --espacio-3: 1.5rem;
+  --espacio-4: 2rem;
+}
+
+/* ---------- 2. BASE ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--fuente-texto);
+  color: var(--azul-noche);
+  background-color: var(--crema);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--fuente-titulos);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+main {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: var(--espacio-3);
+}
+
+section {
+  margin-bottom: var(--espacio-4);
+}
+
+a {
+  color: var(--verde-ruta);
+}
+
+a:hover,
+a:focus {
+  color: var(--azul-noche);
+}
+
+a:focus {
+  outline: 3px solid var(--azul-noche);
+  outline-offset: 3px;
+}
+
+aside {
+  margin-bottom: var(--espacio-3);
+  padding-left: var(--espacio-2);
+  border-left: 4px solid var(--naranja-pedal);
+}
+
+header {
+  padding: var(--espacio-2) var(--espacio-3);
+  border-bottom: 3px solid var(--azul-noche);
+}
+
+footer {
+  padding: var(--espacio-3) var(--espacio-3) 5rem;
+  background-color: var(--azul-noche);
+  color: var(--blanco);
+}
+
+footer p {
+  margin: 0;
+}
+
+footer a {
+  color: var(--blanco);
+}
+
+footer a:hover {
+  color: var(--blanco);
+  text-decoration-thickness: 3px;
+}
+
+footer a:focus {
+  color: var(--blanco);
+  outline: 3px solid var(--blanco);
+}
+
+.saltar {
+  position: absolute;
+  left: -100rem;
+}
+
+.saltar:focus {
+  left: var(--espacio-2);
+  top: var(--espacio-2);
+  z-index: 20;
+  padding: var(--espacio-1) var(--espacio-2);
+  background-color: var(--azul-noche);
+  color: var(--blanco);
+}
+
+/* ---------- 3. NAVEGACIÓN ---------- */
+.marca {
+  margin: 0;
+  font-family: var(--fuente-titulos);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+#menu {
+  margin: var(--espacio-1) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+#menu li {
+  display: inline-block;
+  margin-right: var(--espacio-3);
+}
+
+#menu a {
+  display: inline-block;
+  padding: var(--espacio-1) 0;
+  color: var(--gris-asfalto);
+  text-decoration: none;
+}
+
+#menu a:hover,
+#menu a:focus {
+  color: var(--azul-noche);
+  text-decoration: underline;
+}
+
+#menu a:focus {
+  outline: 3px solid var(--azul-noche);
+  outline-offset: 3px;
+}
+
+/* Página actual. Se escribe con el id para ganarle a "#menu a" (ver bitácora). */
+#menu a.activo {
+  color: var(--verde-ruta);
+  font-weight: 600;
+  border-bottom: 3px solid var(--verde-ruta);
+}
+
+#menu a.activo:hover,
+#menu a.activo:focus {
+  color: var(--azul-noche);
+}
+
+/* ---------- 4. COMPONENTES ---------- */
+.portada {
+  min-height: 50vh;
+  padding: var(--espacio-3);
+  border-radius: 0.5rem;
+  background-color: var(--azul-noche);
+  color: var(--blanco);
+  text-align: center;
+}
+
+.portada img {
+  display: block;
+  margin: 0 auto;
+}
+
+.tarjeta {
+  position: relative;
+  width: 100%;
+  margin-bottom: var(--espacio-3);
+  padding: var(--espacio-3);
+  border: 1px solid var(--gris-asfalto);
+  border-radius: 0.5rem;
+}
+
+.tarjeta h3 {
+  margin-top: 0;
+}
+
+.tarjeta img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Botones y enlaces de llamada a la acción */
+.boton,
+button {
+  display: inline-block;
+  padding: var(--espacio-2) var(--espacio-4);
+  border: 1px solid var(--verde-ruta);
+  border-radius: 0.5rem;
+  background-color: var(--verde-ruta);
+  color: var(--blanco);
+  font-family: var(--fuente-texto);
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.boton:hover,
+.boton:focus,
+button:hover,
+button:focus {
+  border-color: var(--azul-noche);
+  background-color: var(--azul-noche);
+  color: var(--blanco);
+}
+
+.boton:focus,
+button:focus {
+  outline: 3px solid var(--azul-noche);
+  outline-offset: 3px;
+}
+
+/* ---------- 5. TABLAS ---------- */
+table {
+  width: 100%;
+  margin-bottom: var(--espacio-3);
+  border-collapse: collapse;
+}
+
+caption {
+  padding: var(--espacio-1) 0;
+  font-weight: 600;
+  text-align: left;
+}
+
+th,
+td {
+  padding: var(--espacio-1) var(--espacio-2);
+  border: 1px solid var(--gris-asfalto);
+  text-align: left;
+}
+
+thead th {
+  background-color: var(--azul-noche);
+  color: var(--blanco);
+}
+
+/* ---------- 6. FORMULARIO ---------- */
+fieldset {
+  margin: 0 0 var(--espacio-3);
+  padding: var(--espacio-2) var(--espacio-3) var(--espacio-3);
+  border: 1px solid var(--gris-asfalto);
+  border-radius: 0.5rem;
+}
+
+legend {
+  padding: 0 var(--espacio-1);
+  font-family: var(--fuente-titulos);
+  font-weight: 700;
+}
+
+label {
+  display: block;
+  margin: var(--espacio-2) 0 var(--espacio-1);
+  font-weight: 600;
+}
+
+.titulo-grupo {
+  margin: var(--espacio-2) 0 var(--espacio-1);
+  font-weight: 600;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+input[type="number"],
+select,
+textarea {
+  display: block;
+  width: 100%;
+  padding: var(--espacio-1);
+  border: 1px solid var(--gris-asfalto);
+  border-radius: 0.25rem;
+  background-color: var(--blanco);
+  color: var(--azul-noche);
+  font: inherit;
+}
+
+input:hover,
+select:hover,
+textarea:hover {
+  border-color: var(--azul-noche);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 3px solid var(--azul-noche);
+  outline-offset: 2px;
+  border-color: var(--verde-ruta);
+}
+
+label.opcion {
+  display: inline-block;
+  margin: 0 var(--espacio-3) 0 var(--espacio-1);
+  font-weight: 400;
+}
+
+/* ---------- 7. POSICIONAMIENTO ---------- */
+/* Etiqueta "Nuevo": anclada a la esquina de su tarjeta, sin desplazar el contenido */
+.etiqueta-nuevo {
+  position: absolute;
+  top: var(--espacio-1);
+  right: var(--espacio-1);
+  padding: 0 var(--espacio-1);
+  border-radius: 0.25rem;
+  background-color: var(--naranja-pedal);
+  color: var(--azul-noche);
+  font-weight: 600;
+}
+
+/* Acceso a WhatsApp siempre visible en la esquina inferior derecha */
+.whatsapp {
+  position: fixed;
+  right: var(--espacio-2);
+  bottom: var(--espacio-2);
+  z-index: 10;
+  padding: var(--espacio-1) var(--espacio-2);
+  border-radius: 2rem;
+  background-color: var(--verde-ruta);
+  color: var(--blanco);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.whatsapp:hover,
+.whatsapp:focus {
+  background-color: var(--azul-noche);
+  color: var(--blanco);
+}
+
+.whatsapp:focus {
+  outline: 3px solid var(--naranja-pedal);
+  outline-offset: 3px;
+}
