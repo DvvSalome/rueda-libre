@@ -1,4 +1,8 @@
-BITÁCORA - Rueda Libre
+BITÁCORA - Rueda Libre (semana 1: HTML y CSS)
+
+======================================================================
+DÍA 1
+======================================================================
 
 1. PETICIÓN DEL DOCUMENTO (DevTools > Network)
    (Valores típicos de Live Server; confírmalos en tu Network y corrige si cambian)
@@ -25,8 +29,219 @@ BITÁCORA - Rueda Libre
    index.html               -> paginas/reservas.html   -> paginas/reservas.html
    index.html               -> tarifas (recorridos)    -> paginas/tarifas.html#recorridos
    index.html               -> img/portada.svg         -> img/portada.svg
+   index.html               -> css/styles.css          -> css/styles.css
    paginas/tarifas.html     -> index.html              -> ../index.html
    paginas/tarifas.html     -> paginas/reservas.html   -> reservas.html
    paginas/tarifas.html     -> img/logo.svg            -> ../img/logo.svg
+   paginas/tarifas.html     -> css/styles.css          -> ../css/styles.css
    paginas/reservas.html    -> index.html              -> ../index.html
    paginas/reservas.html    -> paginas/tarifas.html    -> tarifas.html
+   paginas/reservas.html    -> css/styles.css          -> ../css/styles.css
+
+======================================================================
+DÍA 2
+======================================================================
+
+5. MINIRETO 5 - ESQUEMA DE REGIONES (antes de tocar el código)
+   Las tres páginas comparten el mismo esqueleto:
+
+   [enlace "Saltar al contenido"]
+   header
+     └ nombre del negocio + nav (menú principal)
+   main
+     └ section / article / aside según la página
+   footer
+   [enlace flotante de WhatsApp]
+
+   index.html:
+     main
+       section.portada      -> h1 "Rueda Libre" + imagen de portada
+       section              -> h2 "¿Quiénes somos?" (+ h3 beneficios)
+       section              -> h2 "Nuestros servicios"
+         article x3         -> un article por servicio (alquiler, recorridos, taller)
+       section              -> h2 "¿Cómo alquilar?"
+       section#encuentranos -> h2 "Encuéntranos"
+
+   paginas/tarifas.html:
+     main
+       h1 "Tarifas y recorridos"
+       section              -> h2 "Tarifas de alquiler" (tabla)
+       section#recorridos   -> h2 "Recorridos guiados" (tabla)
+       section              -> h2 "Información adicional"
+         aside              -> h3 "Qué llevar" (contenido complementario)
+
+   paginas/reservas.html:
+     main
+       h1 "Reserva tu bicicleta"
+       aside                -> h2 "Horario de atención" (contenido complementario)
+       section              -> h2 "Formulario de reserva"
+
+   div y span:
+   - No quedó ningún <div>. El <div id="recorridos"> de la v0.1 pasó a ser una section.
+   - Quedó un <span class="etiqueta-nuevo"> en inicio: la etiqueta "Nuevo" es solo un
+     detalle visual y no existe una etiqueta con significado para eso.
+
+6. MINIRETO 6 - CONTROLES DEL FORMULARIO (3 elecciones justificadas)
+   - Tipo de bicicleta -> botones de radio (input type="radio") con el mismo name="tipo":
+     son solo 3 opciones y solo se puede elegir una; así se ven todas a la vez.
+   - Plan -> lista desplegable (select): son 3 opciones fijas y ocupa poco espacio.
+   - Aceptación de políticas -> casilla (input type="checkbox"): es un sí/no.
+   Otras elecciones: fecha con type="date" (calendario), cantidad con type="number",
+   celular con type="tel", correo con type="email" y comentarios con textarea.
+
+7. MINIRETO 7 - TABLA DE PRUEBAS DE VALIDACIÓN
+   (Probado en Chromium sobre el sitio servido en local, escribiendo cada dato en el campo.)
+
+   Campo        Dato de prueba         Resultado esperado   Resultado obtenido
+   Nombre       Al                     Rechaza (mín. 3)     Rechazado: pide mínimo 3 caracteres
+   Nombre       Ana Gómez              Acepta               Aceptado
+   Documento    12ab56                 Rechaza (letras)     Rechazado: no coincide con el patrón
+   Documento    12345                  Rechaza (5 dígitos)  Rechazado: no coincide con el patrón
+   Documento    1020304050             Acepta (10 dígitos)  Aceptado
+   Correo       salome@                Rechaza              Rechazado: formato de correo incompleto
+   Correo       salome@correo.com      Acepta               Aceptado
+   Celular      3001234567             Acepta               Aceptado
+   Celular      1234567890             Rechaza (no es 3)    Rechazado: no coincide con el patrón
+   Celular      300123                 Rechaza (6 dígitos)  Rechazado: no coincide con el patrón
+   Fecha        2026-10-31             Rechaza              Rechazado: debe ser desde el 1 nov 2026
+   Fecha        2026-11-01             Acepta               Aceptado
+   Fecha        2026-12-31             Acepta               Aceptado
+   Fecha        2027-01-01             Rechaza              Rechazado: debe ser hasta el 31 dic 2026
+   Cantidad     0                      Rechaza              Rechazado: mínimo 1
+   Cantidad     7                      Rechaza              Rechazado: máximo 6
+   Cantidad     1 y 6                  Acepta               Aceptados
+   Comentarios  320 caracteres         Máximo 300           Solo deja escribir 300
+   Políticas    sin marcar             Rechaza              Rechazado
+   Plan         sin elegir             Rechaza              Rechazado
+   Tipo bici    ninguna elegida        Rechaza              Rechazado
+   Formulario   todos los datos bien   Se puede enviar      Válido
+   Formulario   celular 300123         No se envía          Inválido
+
+   Etiquetas: al hacer clic en la etiqueta "Nombre completo" el foco pasa al campo, y al
+   hacer clic en "Montaña" se marca ese radio. Los tres radios comparten name="tipo" y
+   todos los controles del formulario tienen name.
+
+   Prueba con teclado (reservas.html): el orden de Tab es enlace "Saltar al contenido",
+   menú (Inicio, Tarifas y rutas, Reservas), nombre, documento, correo, celular, fecha,
+   tipo de bicicleta (con flechas se cambia de opción), plan, cantidad, recorrido,
+   comentarios, políticas (barra espaciadora la marca), botón de enviar (Enter),
+   enlace del correo y WhatsApp. Orden lógico, no hizo falta corregir nada.
+
+8. MINIRETO 8 - AUDITORÍA DE ACCESIBILIDAD
+   Hallazgo                                             Corrección
+   1. No había forma de saltar el menú con teclado.     Agregué el enlace "Saltar al contenido"
+                                                        al inicio de cada página (id="contenido").
+   2. El menú no indicaba la página actual a un         Agregué aria-current="page" al enlace
+      lector de pantalla.                               de la página en la que se está.
+   3. El enlace al mapa abre otra pestaña y no lo       El texto del enlace ahora dice
+      avisaba.                                          "(se abre en otra pestaña)".
+   4. El menú no estaba identificado como región.       Agregué aria-label="Menú principal"
+                                                        en el nav.
+   5. El formulario nuevo necesitaba que cada campo     Cada control tiene su label con for/id
+      se pudiera usar con lector de pantalla.           y los grupos usan fieldset + legend;
+                                                        los radios van en un grupo con
+                                                        role="radiogroup" y título.
+   Verificado sin cambios: lang="es" en las tres páginas, un solo h1 por página, sin saltos
+   de nivel de encabezado, todas las imágenes con alt, th con scope en las tablas.
+
+   Contraste de la paleta (calculado con la fórmula WCAG 2.1; texto normal >= 4.5:1,
+   texto grande >= 3:1):
+   Combinación                    Relación   Clasificación
+   Blanco sobre Verde Ruta         5.31:1    Apta para texto normal
+   Blanco sobre Naranja Pedal      2.22:1    No apta
+   Azul Noche sobre Naranja Pedal  7.20:1    Apta para texto normal
+   Azul Noche sobre Crema         14.83:1    Apta para texto normal
+   Gris Asfalto sobre Crema        5.57:1    Apta para texto normal
+   Verde Ruta sobre Crema          4.93:1    Apta para texto normal
+   Naranja Pedal sobre Crema       2.06:1    No apta
+   Blanco sobre Azul Noche        15.97:1    Apta para texto normal
+
+   MAPA DE USO DE COLOR
+   - Fondo general: Crema.
+   - Texto principal y títulos: Azul Noche (sobre Crema).
+   - Texto secundario y enlaces del menú: Gris Asfalto (sobre Crema).
+   - Enlaces y botones: texto blanco sobre Verde Ruta; enlaces Verde Ruta sobre Crema.
+   - Destacados (etiqueta "Nuevo"): fondo Naranja Pedal con texto Azul Noche.
+   - Encabezado de tablas, portada y pie de página: fondo Azul Noche con texto blanco.
+   - Naranja Pedal NO se usa para texto (ni sobre Crema ni con texto blanco encima).
+
+   PUBLICACIÓN
+   URL de GitHub Pages: https://dvvsalome.github.io/rueda-libre/
+   (Se activa en el repositorio: Settings > Pages > Deploy from a branch > main / root.)
+
+======================================================================
+DÍA 3
+======================================================================
+
+9. MINIRETO 9 - HERENCIA (comprobada en Chromium, panel Computed)
+   - Propiedad que SE HEREDA: color. El body tiene rgb(20, 33, 61) y el párrafo muestra
+     el mismo valor sin tener una regla propia. También se hereda font-family
+     ("Open Sans") y line-height.
+   - Propiedad que NO se hereda: margin. El body tiene 0px y el párrafo muestra
+     16px 0px (su valor por defecto del navegador). Lo mismo con background-color:
+     el body es crema y el párrafo queda transparente.
+   - Los títulos muestran Montserrat porque tienen su propia regla (h1, h2, h3, h4, h5, h6).
+
+10. MINIRETO 10 - CONFLICTO DE ESPECIFICIDAD
+    Reglas del compañero:
+      #menu a { color: var(--gris-asfalto); }
+      .activo { color: var(--verde-ruta); font-weight: 600; }
+    Especificidad (ids, clases, etiquetas):
+      #menu a  -> (1,0,1)
+      .activo  -> (0,1,0)
+    Causa: la regla con id (1,0,1) tiene más especificidad que la clase (0,1,0), así que
+    el color gris gana aunque .activo esté escrita después. En DevTools la declaración
+    color de .activo aparece tachada.
+    Solución sin !important ni estilos en línea: subir la especificidad de la regla de la
+    clase a #menu a.activo -> (1,1,1), que gana a #menu a (1,0,1).
+    Estados: los enlaces del menú tienen :hover y :focus (subrayado y color Azul Noche,
+    más un contorno de 3px en el foco). Los campos del formulario reemplazan el contorno
+    del navegador por uno de 3px Azul Noche con separación. Todos los textos de estos
+    estados usan combinaciones aprobadas (>= 4.5:1).
+
+11. MINIRETO 11 - ANCHO DE LA TARJETA SEGÚN box-sizing (Computed, ventana de 1280px)
+    Una tarjeta de servicio con width: 100%, relleno de 24px y borde de 1px dentro de un
+    contenido principal cuya zona útil mide 912px:
+    - box-sizing: content-box -> width 960px + 48px de relleno + 2px de borde = 1010px
+      (se sale del contenido por 98px).
+    - box-sizing: border-box  -> 912px en total (cabe justo).
+    Por eso se aplicó border-box a todos los elementos con *, *::before, *::after.
+    Medidas finales: el contenido principal mide máximo 60rem (960px) centrado con margen
+    automático; la portada tiene min-height: 50vh (400px en esta ventana). Solo los
+    bordes están en px; el resto del espaciado usa la escala en rem.
+
+12. MINIRETO 12 - REVISIÓN FINAL
+    - Etiqueta "Nuevo": position: absolute en la esquina superior derecha de su tarjeta
+      (que es position: relative). Se midió la posición del título de la tarjeta con y
+      sin la etiqueta: es la misma (no desplaza contenido).
+    - WhatsApp: position: fixed, a 16px de la esquina inferior derecha en las tres
+      páginas, visible al subir y al bajar. El pie de página tiene relleno inferior de
+      5rem para que el enlace no tape su texto. Se puede enfocar con Tab.
+    - Las tres páginas usan el mismo encabezado, menú, botones y pie desde css/styles.css.
+    - styles.css está organizado por secciones comentadas (variables, base, navegación,
+      componentes, tablas, formulario, posicionamiento).
+    - En Network (servidor local) las tres páginas, las imágenes y styles.css devuelven 200;
+      no hay 404. Ningún HTML tiene style="" ni <style>. Ningún enlace interno está roto.
+
+CIERRE DE LA SEMANA
+-------------------
+MiniReto 1 - Kilómetro 0: creé el repositorio, la estructura de carpetas, el index.html base y
+             esta bitácora, y analicé la petición al servidor (200 y 404).
+MiniReto 2 - La vitrina: la página de inicio con encabezados jerárquicos, listas, imágenes
+             y los tres tipos de enlace.
+MiniReto 3 - Tarifas: dos tablas accesibles, rutas relativas entre carpetas y el enlace
+             directo a la tabla de recorridos.
+MiniReto 4 - v0.1: menú y pie comunes, página de reservas y lista de definiciones.
+MiniReto 5 - Semántica: header, nav, main, section, article, aside y footer en las tres páginas.
+MiniReto 6 - Formulario de reservas con fieldset, labels y el control adecuado para cada dato.
+MiniReto 7 - Validación nativa con required, minlength, pattern, min y max, y prueba con teclado.
+MiniReto 8 - Auditoría de accesibilidad, contraste de la paleta y publicación en GitHub Pages.
+MiniReto 9 - Hoja de estilos externa con variables, tipografías de Google Fonts y herencia.
+MiniReto 10 - Menú con página activa, estados :hover y :focus, y el conflicto de especificidad.
+MiniReto 11 - Modelo de caja: tarjetas, tablas, formulario y contenedor centrado.
+MiniReto 12 - Posicionamiento (etiqueta y WhatsApp), revisión final y versión 1.0.
+
+Lo que mejoraría: que el formulario envíe los datos a un servidor de verdad (hoy el action
+es "#"), que las tablas se adapten a pantallas pequeñas y que el sitio sea responsive con
+Flexbox, Grid y media queries (semana 2), además de cambiar las imágenes de relleno por
+fotos reales.
