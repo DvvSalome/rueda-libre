@@ -1,0 +1,32 @@
+BITÁCORA - Rueda Libre
+
+1. PETICIÓN DEL DOCUMENTO (DevTools > Network)
+   (Valores típicos de Live Server; confírmalos en tu Network y corrige si cambian)
+   URL completa: http://127.0.0.1:5500/index.html
+   Protocolo: http
+   Host: 127.0.0.1
+   Puerto: 5500
+   Ruta: /index.html
+   Método: GET
+   Código de estado: 200 OK (la página se encontró y se entregó)
+
+2. RUTA QUE NO EXISTE
+   URL probada: http://127.0.0.1:5500/promociones.html
+   Código: 404 Not Found (el servidor no encontró ese recurso)
+
+3. ROL DE HTML, CSS Y JAVASCRIPT EN RUEDA LIBRE
+   HTML: estructura y contenido. Ejemplo: <h1>Rueda Libre</h1> es el título del sitio.
+   CSS: presentación. Ejemplo: h1 { color: green; } para pintar el título de verde.
+   JavaScript: comportamiento. Ejemplo: mostrar un mensaje al hacer clic en "Reservar ahora".
+
+4. TABLA DE RUTAS RELATIVAS
+   Archivo de origen        -> Destino                 -> Ruta escrita
+   index.html               -> paginas/tarifas.html    -> paginas/tarifas.html
+   index.html               -> paginas/reservas.html   -> paginas/reservas.html
+   index.html               -> tarifas (recorridos)    -> paginas/tarifas.html#recorridos
+   index.html               -> img/portada.svg         -> img/portada.svg
+   paginas/tarifas.html     -> index.html              -> ../index.html
+   paginas/tarifas.html     -> paginas/reservas.html   -> reservas.html
+   paginas/tarifas.html     -> img/logo.svg            -> ../img/logo.svg
+   paginas/reservas.html    -> index.html              -> ../index.html
+   paginas/reservas.html    -> paginas/tarifas.html    -> tarifas.html
